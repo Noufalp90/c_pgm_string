@@ -1,0 +1,30 @@
+
+/* this API returns length of longest substring without repetitive characters */
+
+int lengthOfLongestSubstring(char* s) 
+{
+    int max_len = 0;
+    int left = 0;
+    int right = 0, curr_size = 0;
+	/* to store the index where the characters are seen */
+    int seen[256] = {-1};
+    for (right = 0; s[right] !='\0';right++)
+    {
+        unsigned char current_char = s[right];
+        /* update left index based on the seen value */
+        if(seen[current_char] >= left)
+        {
+            left = seen[current_char] + 1;
+        }
+		
+        seen[current_char] = right;
+
+		/* update maximum length */
+        curr_size = right - left + 1;
+        if(curr_size > max_len)
+        {
+            max_len = curr_size;
+        }
+    }
+    return max_len;
+}
